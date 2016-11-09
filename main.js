@@ -12,7 +12,7 @@ function updatePosts() {
 		var textPost = posts[i].name;
 		var idNum = posts[i].id;
 
-		$('.posts').append('<p class="post" data-id="+idNum+">' + textPost +'<a href="#" class="remove">'+ 'remove' +'</a> </p>');
+		$('.posts').append('<p class="post" data-id="'+idNum+'">' + textPost +'<a href="#" class="remove">'+ 'remove' +'</a> </p>');
 		removePost();
 	}
 
@@ -47,8 +47,21 @@ function addPost(str) {
 
 // remove one post
 function removePost() {
+
 	$('a.remove').closest('p').on('click', function(){
-		$(this).remove();
+
+		//loop through the post array to delete post selected
+		for (var i = 0; i < posts.length; i++) {
+			//grab the data-id from element p
+			var pItem = $(this).closest('p').data().id;
+			// var indexPost = posts[i].id;
+			if(pItem === posts[i].id) {
+				posts.splice(i, 1);
+				$(this).closest('p').remove();
+				return;
+			}
+		}
+
 	})
 }
 
