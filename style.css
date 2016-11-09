@@ -1,0 +1,12 @@
+.container {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.posts {
+    margin-top: 35px;
+}
+
+.post a.remove {
+    margin-left: 10px;
+}
