@@ -61,15 +61,13 @@ function addComment(username, comment, id){
 	 };
 
 console.log(posts);
+	//find the id of which
 	for (var i = 0; i < posts.length; i++) {
-		if(id===posts[i].id) {
+		if(id === posts[i].id) {
 			posts[i].comments.push(newComment);
 		}
 	}
-	// var newComment =  new Comment(username, comment);
 
-
-	// posts[comments].push(newComment);
 }
 
 // remove one post
@@ -115,6 +113,10 @@ $('.posts').on('click', ".add-comment",function() {
 		console.log(comment);
 
 		addComment(username, comment, id);
+
+		//remove text from inputs
+		username = $(this).prev().prev().find('input').val('');
+		comment = $(this).prev().find('input').val('');
 
 	});
 
