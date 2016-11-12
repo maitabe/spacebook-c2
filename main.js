@@ -11,9 +11,10 @@ function updatePosts() {
 	for (var i = 0; i < posts.length; i++) {
 		var textPost = posts[i].name;
 		var idNum = posts[i].id;
+		var commPost = posts[i].comments.length;
 
 		$('.posts').append(
-			 '<div class="post-wrap" data-id="' + idNum + '"><p class="post">' + textPost +'<a href="#" class="remove">'+ 'remove' +'</a> </p>'
+			 '<div class="post-wrap" data-id="' + idNum + '"><p class="post">' + textPost +'<a href="#" class="commentPost"><span class="badge">' + commPost + '</span> Comments</a> <a href="#" class="remove">Remove</a> </p>'
 			+'<div class="well"><div class="form-group"><input type="text" class="username-input form-control" placeholder="Username"></input>'
         	+'</div><div class="form-group"><input type="text" class="comment-input form-control" placeholder="Comment"></input>'
         	+'</div><button type="button" class="btn btn-primary add-comment">Comment</button></div></div>'
@@ -76,8 +77,6 @@ function removePost(id) {
 	posts.splice(id, 1);
 
 }
-
-
 	//event handlers
 
 	//add a new post
@@ -105,7 +104,7 @@ function removePost(id) {
 $('.posts').on('click', ".add-comment",function() {
 		var id = $(this).closest('.post-wrap').data().id;
 
-		alert(id);
+		// alert(id);
 		var username = $(this).prev().prev().find('input').val();
 		var comment = $(this).prev().find('input').val();
 
@@ -118,6 +117,39 @@ $('.posts').on('click', ".add-comment",function() {
 		username = $(this).prev().prev().find('input').val('');
 		comment = $(this).prev().find('input').val('');
 
+		updatePosts();
+
 	});
+
+//pop up window
+
+$('.posts').on('click', ".commentPost", function() {
+
+	var id = $(this).closest('.post-wrap').data().id;
+
+	for (var i = 0; i < posts.length; i++) {
+			var commlist = posts[i].comments;
+			for (var j = 0; j < commlist.length; j++) {
+				var username = commlist[j].username;
+				var comms = commlist[j].comment;
+
+				// $(this).closest('.post-wrap');
+				$('#myModal').show();
+				$('#myModal').html('<div class="modal-content"><span class="glyphicon glyphicon-remove"></span><h4>Comments</h4>'
+					+'<div class="panel panel-info"><div class="panel-heading"><h3 class="panel-title">' + username +'</h3></div>'
+					+'<div class="panel-body">' + comms + '</div></div>');
+
+				$('span.glyphicon.glyphicon-remove ').click(function(){
+					console.log($(this));
+						$('#myModal').hide();
+				});
+
+			}
+
+	}
+
+});
+
+
 
 
