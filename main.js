@@ -151,5 +151,9 @@ $('.posts').on('click', ".commentPost", function() {
 });
 
 
+// to fix
+//add a function that remove comments
+//the id for each post can be found with the index of the array (only if you don't use a server to keep the info)
+//add a toggle function to the comments
 
 
