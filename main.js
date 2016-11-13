@@ -50,7 +50,7 @@ var SpacebookApp = function () {
     renderPosts: renderPosts,
     removePost: removePost
   };
-}
+};
 
 var app = SpacebookApp();
 
@@ -69,3 +69,6 @@ $('.add-post').on('click', function (e) {
 $('.posts').on('click', 'a', function () {
   app.removePost(this);
 });
+
+
+
