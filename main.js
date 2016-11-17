@@ -1,5 +1,15 @@
 //global variables
-var posts = [];
+var STORAGE_ID = 'spacebook';
+
+var getFromLocalStorage = function() {
+	return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+};
+
+var saveToLocalStorage = function() {
+	localStorage.setItem(STORAGE_ID, JSON.stringify(posts));
+};
+
+var posts = getFromLocalStorage();
 
 //functions
 
@@ -7,6 +17,8 @@ var posts = [];
 function updatePosts() {
 	//empty the
 	$('.posts').empty();
+
+
 	//print the data from the main array
 	for (var i = 0; i < posts.length; i++) {
 		var textPost = posts[i].name;
@@ -48,6 +60,7 @@ function addPost(str) {
 	//populate the posts array
 	posts.push(newPost);
 
+	saveToLocalStorage();
 	//remove text from input
 	namePost = $('#post-name').val('');
 
@@ -69,15 +82,28 @@ console.log(posts);
 		}
 	}
 
+	saveToLocalStorage();
+
 }
 
 // remove one post
 function removePost(id) {
 
+
 	posts.splice(id, 1);
+	// removePostStorage(id);
+	saveToLocalStorage();
 
 }
+
+
 	//event handlers
+	// posts = getFromLocalStorage();
+	// $(document).ready(function() {
+	// 	posts = getFromLocalStorage();
+	// 	updatePosts();
+	// });
+
 
 	//add a new post
 	$('.add-post').on('click', function() {
@@ -150,6 +176,7 @@ $('.posts').on('click', ".commentPost", function() {
 
 });
 
+updatePosts();
 
 // to fix
 //add a function that remove comments
